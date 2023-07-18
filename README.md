@@ -28,6 +28,13 @@ Movie Info Finder GUI is a Python application built with PyQt6 that allows users
 
    ```shell
    git clone https://github.com/danialrashidi0456/movie-info-finder-GUI.git
+2. install requirements:
+   ```shell
+   pip install -r requirements.txt
+3. Run the Python File:
+   ```shell
+   python3 main.py
+
 
 ## Usage
 
