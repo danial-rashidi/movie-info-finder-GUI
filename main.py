@@ -173,7 +173,6 @@ class Ui_MainWindow(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon("/icon.png"))
     app.setStyleSheet(Path('style.qss').read_text())
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
