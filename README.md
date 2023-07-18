@@ -17,9 +17,20 @@ Movie Info Finder GUI is a Python application built with PyQt6 that allows users
 ![Screenshot 1](Screenshots/Screenshot_1.png)
 ![Screenshot 2](Screenshots/Screenshot_2.png)
 
+## Requirements
+
+- Python 3.8 or higher
+- PyQt6
+
 ## Installation
 
 1. Clone the repository:
 
    ```shell
    git clone https://github.com/danialrashidi0456/movie-info-finder-GUI.git
+
+## Usage
+
+- Enter the movie title in the search bar and click the "Search" button.
+- The application will retrieve movie information from the OMDb API and display it in the results area.
+
