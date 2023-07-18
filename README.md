@@ -35,7 +35,6 @@ Movie Info Finder GUI is a Python application built with PyQt6 that allows users
    ```shell
    python3 main.py
 
-
 ## Usage
 
 - Enter the movie title in the search bar and click the "Search" button.
