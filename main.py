@@ -48,6 +48,8 @@ class AboutDialog(QtWidgets.QDialog):
 
         self.setLayout(layout)
 
+#main Window Class 
+
 class Ui_MainWindow(object):
 
     def setupUi(self, MainWindow):
