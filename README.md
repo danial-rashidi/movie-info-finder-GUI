@@ -3,12 +3,12 @@
 ![PyQt6 Version](https://img.shields.io/badge/PyQt6-6.0%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Movie Info Finder GUI is a Python application built with PyQt6 that allows users to search for movie information using the OMDb API.
+Movie Info Finder GUI is a Python application built with PyQt6 that allows users to search for movie information.
 
 ## Features
 
 - Search for movies by title
-- View detailed information about movies, including title, year, plot, ratings, and more
+- View detailed information about movies, including title, year, plot, ratings, and etc
 - User-friendly graphical user interface
 - Powered by the OMDb API
 
