@@ -1,5 +1,4 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
-from pathlib import Path
 import requests
 
 class AboutDialog(QtWidgets.QDialog):
@@ -94,6 +93,7 @@ class Ui_MainWindow(object):
         self.showInfo = QtWidgets.QTextBrowser(parent=self.InfoSection)
         self.showInfo.setGeometry(QtCore.QRect(0, 0, 481, 590))
         self.showInfo.setObjectName("showInfo")
+        self.showInfo.anchorClicked.connect(self.open_link)
         self.showInfo.document().setDefaultFont(font)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
@@ -136,20 +136,38 @@ class Ui_MainWindow(object):
         movie_info_json = response.json()
 
         if movie_info_json["Response"] == "True":
-            info_text = f"Title: {movie_info_json.get('Title')}\n" \
-                        f"Year: {movie_info_json.get('Year')}\n" \
-                        f"Time: {movie_info_json.get('Runtime')}\n" \
-                        f"Genre: {movie_info_json.get('Genre')}\n" \
-                        f"Director: {movie_info_json.get('Director')}\n" \
-                        f"Writer: {movie_info_json.get('Writer')}\n" \
-                        f"Actors: {movie_info_json.get('Actors')}\n" \
-                        f"Awards: {movie_info_json.get('Awards')}\n" \
-                        f"BoxOffice: {movie_info_json.get('BoxOffice')}\n" \
-                        f"Metascore: {movie_info_json.get('Metascore')}\n" \
-                        f"IMDB: {movie_info_json.get('imdbRating')}\n"
-            self.showInfo.setText(info_text)
+            download_url = "https://www.test.com"
+            info_text = f"<div style='text-align: center;'>"
+            info_text += f"<b>Title:</b> {movie_info_json.get('Title')}<br>" \
+                        f"<br><b>Year:</b> {movie_info_json.get('Year')}<br>" \
+                        f"<br><b>Time:</b> {movie_info_json.get('Runtime')}<br>" \
+                        f"<br><b>Genre:</b> {movie_info_json.get('Genre')}<br>" \
+                        f"<br><b>Director:</b> {movie_info_json.get('Director')}<br>" \
+                        f"<br><b>Writer:</b> {movie_info_json.get('Writer')}<br>" \
+                        f"<br><b>Actors:</b> {movie_info_json.get('Actors')}<br>" \
+                        f"<br><b>Awards:</b> {movie_info_json.get('Awards')}<br>" \
+                        f"<br><b>BoxOffice:</b> {movie_info_json.get('BoxOffice')}<br>" \
+                        f"<br><b>Metascore:</b> {movie_info_json.get('Metascore')}<br>" \
+                        f"<br><b>Download Link:</b> <a href='{download_url}'>{name}</a>" \
+                        f"<br>"
+            self.download_url = download_url
+            self.showInfo.setHtml(info_text)
         else:
             self.showInfo.setText("Movie not found!")
+
+    def open_link(self, url):
+        # Check if the clicked link matches the IMDb URL
+        if url.scheme() == "http" or url.scheme() == "https":
+            # Open the link in the default web browser
+            QtGui.QDesktopServices.openUrl(url)
+
+            # Manually reset the text cursor to prevent the showInfo text from disappearing
+            cursor = self.showInfo.textCursor()
+            cursor.clearSelection()
+            self.showInfo.setTextCursor(cursor)
+        else:
+            # If the link is not external, handle the anchorClicked event without further action
+            pass
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -214,6 +232,7 @@ if __name__ == "__main__":
 
     /* Set the background and text colors for text areas */
     QTextEdit, QTextBrowser {
+        text-align: center;
         background-color: #303032;
         color: #FFFFFF;
         padding: 12px;
