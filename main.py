@@ -134,9 +134,11 @@ class Ui_MainWindow(object):
         url = f"http://www.omdbapi.com/?apikey={api_key}&t={name}"
         response = requests.get(url)
         movie_info_json = response.json()
-
+        lower_name = name.lower()
+        strip_name = lower_name.strip()
+        name_for_url = strip_name.replace(' ','-')
         if movie_info_json["Response"] == "True":
-            download_url = "https://www.test.com"
+            download_url = f"https://yts.mx/movies/{name_for_url}{'-'}{movie_info_json.get('Year')}"
             info_text = f"<div style='text-align: center;'>"
             info_text += f"<b>Title:</b> {movie_info_json.get('Title')}<br>" \
                         f"<br><b>Year:</b> {movie_info_json.get('Year')}<br>" \
@@ -147,9 +149,10 @@ class Ui_MainWindow(object):
                         f"<br><b>Actors:</b> {movie_info_json.get('Actors')}<br>" \
                         f"<br><b>Awards:</b> {movie_info_json.get('Awards')}<br>" \
                         f"<br><b>BoxOffice:</b> {movie_info_json.get('BoxOffice')}<br>" \
-                        f"<br><b>Metascore:</b> {movie_info_json.get('Metascore')}<br>" \
-                        f"<br><b>Download Link:</b> <a href='{download_url}'>{name}</a>" \
+                        f"<br><b>IMDB:</b> {movie_info_json.get('imdbRating')}<br>" \
+                        f"<br><b>Download URL:</b> <a href='{download_url}'>{name}</a>" \
                         f"<br>"
+            
             self.download_url = download_url
             self.showInfo.setHtml(info_text)
         else:
@@ -160,14 +163,6 @@ class Ui_MainWindow(object):
         if url.scheme() == "http" or url.scheme() == "https":
             # Open the link in the default web browser
             QtGui.QDesktopServices.openUrl(url)
-
-            # Manually reset the text cursor to prevent the showInfo text from disappearing
-            cursor = self.showInfo.textCursor()
-            cursor.clearSelection()
-            self.showInfo.setTextCursor(cursor)
-        else:
-            # If the link is not external, handle the anchorClicked event without further action
-            pass
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
